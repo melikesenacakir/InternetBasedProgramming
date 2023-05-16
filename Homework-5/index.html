@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kullanıcı Giriş</title>
+</head>
+<body>
+<form action="veri_al.php" method="post" enctype="multipart/form-data">
+    <div style="text-align: center">
+    <img src="welcomee.png" alt="there is a problem loading image" height="600px" >
+    </div>
+    <div style="text-align: center;height: 90px;" >
+        <h3>Full Name:<input type="text" name="adsoyad" required></h3>
+
+        <h3>Email Address:<input type="email" name="eposta" required></h3>
+
+        <h3>Gender: Male<input type="radio" name="gender" value="male" required>
+            Female<input type="radio" name="gender" value="female" required checked></h3><br>
+    <button type="submit" style="background-color:cadetblue;color: cornsilk;height: 30px;width: 150px;" name="buton">SEND</button>
+    </div>
+</form>
+</body>
+</html>
