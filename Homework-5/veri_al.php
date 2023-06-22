@@ -1,10 +1,19 @@
 <?php
 
+//db is made in phpmydmin
+/*
+-> CREATE TABLE students (
+  `id` int(100) NOT NULL,
+  `full_name` varchar(50) NOT NULL,
+  `email` varchar(60) NOT NULL,
+  `gender` enum('male','female') NOT NULL
+) */
+
 function control($controldata){
     if($controldata==$_POST['adsoyad']){
         if(isset($controldata) && !empty($controldata)){
-            if (!preg_match("/^[a-zA-Z ]*$/", $controldata)) {
-                echo "Name: Only letters and whitespace allowed";
+            if (preg_match("/[^a-zA-ZşçğüŞÇÜĞİı\s]+/", $controldata)) {
+                echo "Full Name: Only letters and whitespace allowed<br>";
                 return null;
             }else return $controldata;
         }
@@ -23,19 +32,19 @@ try{
     if(isset($_POST['buton'])){
         $sql="INSERT INTO students SET full_name=?, email=?, gender=?";
         $sonuc=$db->prepare($sql);
-          $ad=control($_POST['adsoyad']);
-          $posta=control($_POST['eposta']);
-          $cinsiyet=$_POST['gender'];
-           if ($ad==null || $posta==null) {
-               echo "bad data entry";
-               exit();
-           }else{
-               $ekleme=$sonuc->execute([
-                   "$ad",
-                   "$posta",
-                   "$cinsiyet"
-               ]);
-           }
+        $ad=control($_POST['adsoyad']);
+        $posta=control($_POST['eposta']);
+        if ($ad==null || $posta==null || @$_POST['gender']==null) {
+            echo "bad data entry";
+            exit();
+        }else{
+            $cinsiyet=$_POST['gender'];
+            $ekleme=$sonuc->execute([
+                "$ad",
+                "$posta",
+                "$cinsiyet"
+            ]);
+        }
 
 
 
@@ -55,9 +64,7 @@ try{
             echo "gender: ".$veri['gender']."<br>";
             echo "------------------------------------<br>";
         }
-}
+    }
 }catch(PDOException $par){
     echo $par->getMessage();
 }
-
-
